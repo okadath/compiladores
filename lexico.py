@@ -1,5 +1,5 @@
 def crea_tabla_tansiciones():
-	graph = {}  
+	graph = {}
 
 
 
@@ -21,6 +21,15 @@ def crea_tabla_tansiciones():
 	graph[(7,"(")]=8
 	graph[(7,")")]=8
 
+	graph[(8,"d")]= "ID"
+	graph[(8,"l")]= "ID"
+	graph[(8,"+")]= "ID"
+	graph[(8,"-")]= "ID"
+	graph[(8,"*")]= "ID"
+	graph[(8,"/")]= "ID"
+	graph[(8,"(")]= "ID"
+	graph[(8,")")]= "ID"
+
 	graph[(8,"l")]= "ID"
 	graph[(9,"+")]= "SUM"
 	graph[(10,"-")]= "RES"
@@ -41,17 +50,22 @@ lista_tokens=[]
 lista_identificadores=[]
 insertados=1
 retroceso=False
+num=""
+apilando_letra=False
 while 1:
 
 	# read by character
-	char = file.read(1)  
+
 	if retroceso:
-		char= file.seek(file.tell()-1)# -1 ??
+		file.seek(a-2)
 		retroceso=False
+	char = file.read(1)
+	a=file.tell()
+	print(file.tell())
 	# file.tell() nos dice la pocision del puntero del archivo
 	# si necesitas moverte a una posicion dada usas file.seek()
 	# https://docs.python.org/3/tutorial/inputoutput.html#methods-of-file-objects
-	# print(file.tell())      
+	# print(file.tell())
 	if not char:
 		break
 
@@ -76,45 +90,38 @@ while 1:
 		buffer="d"
 	else:
 		buffer=char
-	posicion_grafo=1
-	cadena=""
-	num=""
-	apilando_letra=False
-	while True:
-# 
-		# if 
+	if apilando_letra==False:
+		posicion_grafo=1
+		cadena=""
 
-		print(cadena)
-		print(lista_tokens)
-		print(lista_identificadores)
-		print(buffer)
-		print(posicion_grafo)
+	while True:
+
+##		if buffer=="":
+##			lista_tokens.append(buffer)
+##			lista_identificadores.append(posicion_grafo+str(insertados))
+##			break
 		try:
 			if str(posicion_grafo).isdigit():
 				if buffer=="l":
 					cadena=cadena+char
 					apilando_letra=True
+
+				if buffer=="\n" or buffer==" ":
+					apilando_letra=False
+					break
 				posicion_grafo=tabla[(posicion_grafo,buffer)]
+
 		except Exception as e:
 			raise e
-			print("error")
 			print("transicion no aceptada o caracter no valido: "+str(buffer))
 			break
-
-		# el problema esta aqui, no llega al siguiente
-		# y se queda en un bucle en (7,l)
-		# no se si por que el siguiente valor lo lee como alpha
-		# por que noa ctualizo el buffer
-		# por que el siguiente no hago aun el retroceso
-		# mañana tengo que debuggear esto
-		# ahorita creo que no es culpa del retroceso
-		# se queda en el loop (7,"l")=7
 		if str(posicion_grafo).isalpha():
 			if apilando_letra:
 				lista_tokens.append(cadena)
 				apilando_letra=False
-				# lista_identificadores.append(posicion_grafo+str(insertados))	
-			else: 
+				retroceso=True
+				# lista_identificadores.append(posicion_grafo+str(insertados))
+			else:
 				lista_tokens.append(buffer)
 
 			lista_identificadores.append(posicion_grafo+str(insertados))
@@ -125,6 +132,8 @@ while 1:
 			break
 		if posicion_grafo=="error":
 			print("error")
+			break
+		if apilando_letra:
 			break
 
 
