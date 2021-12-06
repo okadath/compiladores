@@ -118,7 +118,7 @@ while 1:
 			end=True
 
 	if char.isalpha():
-		if buffer=="." and cadena[-2].isdigit():
+		if buffer=="." and cadena[-1].isdigit():
 			print("error INT.CHAR "+ cadena+char)
 			break
 		if buffer=="d":
@@ -178,8 +178,8 @@ while 1:
 				posicion_grafo = tabla[(posicion_grafo, buffer)]
 
 		except Exception as e:
-			print("error is digit")
-			raise e
+			# print("error is digit")
+			# raise e
 			break
 		if str(posicion_grafo).isalpha():
 			# insertados = insertados + 1
