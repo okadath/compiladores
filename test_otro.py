@@ -9,6 +9,7 @@ def crea_tabla_tansiciones():
 	graph[(1, "l")] = 7
 	graph[(1, "(")] = 13
 	graph[(1, ")")] = 14
+	graph[(1, "otro")] = 15
 	
 	graph[(2, "d")] = 2
 	graph[(2, ".")] = 4
@@ -19,6 +20,7 @@ def crea_tabla_tansiciones():
 	graph[(2, "l")] = 3
 	graph[(2, "(")] = 3
 	graph[(2, ")")] = 3
+	graph[(2, "otro")] = 3
 	
 	graph[(3, "d")] = "NUM"
 	graph[(3, ".")] = "NUM"
@@ -29,6 +31,7 @@ def crea_tabla_tansiciones():
 	graph[(3, "/")] = "NUM"
 	graph[(3, "(")] = "NUM"
 	graph[(3, ")")] = "NUM"
+	graph[(3, "otro")] = "NUM"
 	
 	graph[(4, "d")] = 5
 	graph[(4, ".")] = 15
@@ -39,7 +42,8 @@ def crea_tabla_tansiciones():
 	graph[(4, "l")] = 15
 	graph[(4, "(")] = 15
 	graph[(4, ")")] = 15
-	
+	graph[(4, "otro")] = 15
+
 	graph[(5, "d")] = 5
 	graph[(5, ".")] = 6
 	graph[(5, "+")] = 6
@@ -49,6 +53,8 @@ def crea_tabla_tansiciones():
 	graph[(5, "l")] = 6
 	graph[(5, "(")] = 6
 	graph[(5, ")")] = 6
+	graph[(5, "otro")] = 6
+
 	
 	graph[(6, "d")] = "NREAL"
 	graph[(6, ".")] = "NREAL"
@@ -59,6 +65,7 @@ def crea_tabla_tansiciones():
 	graph[(6, "/")] = "NREAL"
 	graph[(6, "(")] = "NREAL"
 	graph[(6, ")")] = "NREAL"
+	graph[(6, "otro")] = "NREAL"
 	
 	graph[(7, "d")] = 7
 	graph[(7, ".")] = 8
@@ -104,6 +111,7 @@ def crea_tabla_tansiciones():
 	graph[(15, "/")] = "error"
 	graph[(15, "(")] = "error"
 	graph[(15, ")")] = "error"
+	graph[(15, "otro")] = "error"
 	# print(graph)
 	return graph
 
