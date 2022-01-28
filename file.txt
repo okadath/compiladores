@@ -1,1 +1,4 @@
-t/tt+++6.6y/u()t
+unsigned int a=3+1.0;
+long float b=6*6.6;
+char aa="a";
+when (a);
