@@ -356,7 +356,8 @@ for i in range(0, len(lista_tokens)):
 lista_tipo_lexemas=[]
 
 for i in range(0, len(lista_tokens)):
-	lista_tipo_lexemas.append({"token":lista_identificadores[i],"value":lista_tokens[i],"tipo":"","modificador":""})
+	lista_tipo_lexemas.append({"token":lista_identificadores[i],"value":lista_tokens[i],"tipo":"","modif":""})
+								  # ,"nodo":{"dato":"","hijo_izq":"","hijo_der":""}})
 
 list_types=["int","char","float","double"]
 list_modificadores=["unsigned","signed","long"]
@@ -365,8 +366,8 @@ for i in range(0, len(lista_tokens)):
 	for a in list_modificadores:
 		if lista_identificadores[i].split("_")[0]==a:
 			# print(lista_identificadores[i]+" es "+ a)
-			lista_tipo_lexemas[i+1]["modificador"]=a
-			lista_tipo_lexemas[i + 2]["modificador"] = a
+			lista_tipo_lexemas[i+1]["modif"]=a
+			lista_tipo_lexemas[i + 2]["modif"] = a
 	for a in list_types:
 		if lista_identificadores[i].split("_")[0]==a:
 			# print(lista_identificadores[i]+" es "+ a)
@@ -408,17 +409,130 @@ while i< (len(lista_tokens)):
 		elif j["tipo"]!="":
 			lista_tipo_lexemas[inicioo-1]["tipo"]="int"
 
-	print(i)
-	for a in lista:
-		print(a)
+	# print(i)
+	# for a in lista:
+	# 	print(a)
 
 
-for a in lista_tipo_lexemas:
-	print(a)
+# aqui se imprime la tarea 4
+# for a in lista_tipo_lexemas:
+# 	print(a)
 
 # El lenguaje C no define tamaños fijos para sus tipos de datos básicos.
 # Lo único que garantiza es que un short int tiene un tamaño menor o igual que un int
 # y este a su vez un tamaño menor o igual a un long int.
 # Esta característica del lenguaje ha complicado la creación de progra
 # mas que sean compatibles entre varias plataformas.
+
+
+
+
+punteros_a_valores=[]
+registros=[]
+
+i=0
+
+
+def IsArithmeticOP(cadena)-> bool:
+	return (cadena=="+" or cadena=="-" or cadena=="*" or cadena=="/")
+
+def generatearithmeticOP(cadena, reg1,reg2):
+	op=""
+	if cadena=="+":
+		op="ADD"
+	elif cadena=="-":
+		op="SUB"
+	elif cadena=="*":
+		op="MUL"
+	elif cadena=="/":
+		op="DIV"
+	print(op+" R"+str(reg1)+" , R"+str(reg2)+";")
+
+
+def generateload(cadena,registro):
+	print("LOAD "+cadena+" R"+str(registro)+";")
+
+def get_node(array,label):
+	for i in array:
+
+
+		if i["val"]==label:
+			# print("i es")
+			# print(i)
+			return i
+
+def generate_code(array,arbol, regnum):
+	try:
+		# print("arbol es")
+		# print(arbol)
+		if (IsArithmeticOP(arbol["nodo"]["label"])):
+			# print(arbol["nodo"]["label"])
+			generate_code(array,get_node(array,arbol["nodo"]["der"]),regnum)
+			generate_code(array,get_node(array,arbol["nodo"]["izq"]),regnum+1)
+			generatearithmeticOP(arbol["nodo"]["label"],regnum,regnum+1)
+
+		else:
+			generateload(arbol["nodo"]["label"],regnum )
+	except Exception as e:
+		print(inicio)
+		raise(e)
+		generateload(arbol["nodo"]["label"], regnum)
+
+
+while i< (len(lista_tokens)):
+# for i in range(1, len(lista_tokens)):
+	arbol=[]
+	if lista_identificadores[i-1].split("_")[0] == "ident":
+		# punteros_a_valores.append({"id":lista_tipo_lexemas[i-1]["token"],"arbol":"","valor":""})
+		inicioo=i
+		for j in range(i+1, len(lista_tokens)):
+			if lista_tipo_lexemas[j]["token"].split("_")[0]=="puntoycoma":
+				# aqui insertamos el padre del arbol, pero con while, for, y demas el arbol se construye apuntando a un valor distinto
+				# punteros_a_valores[-1]["arbol"] = lista_tipo_lexemas[j-2]["token"]
+				# punteros_a_valores[-1]["arbol"] = lista_tipo_lexemas[inicioo+2]["token"]
+				i=j
+				break
+			arbol.append({"val":lista_tipo_lexemas[j]["token"],"nodo":{"label":lista_tipo_lexemas[j]["value"],"izq":"","der":""}})
+	# arbol[inicioo]["arbol"]=lista_tipo_lexemas[inicioo]["token"]
+
+	if len(arbol)>1:
+
+		for j in range(1, len(arbol)-1):
+			# print(arbol[j]["val"].split(("_"))[0][:4])
+			if arbol[j]["val"].split(("_"))[0][:4]=="oper":
+				arbol[j]["nodo"]["izq"] = arbol[j - 2]["val"]
+				arbol[j]["nodo"]["der"] = arbol[j + 1]["val"]
+		arbol[1]["nodo"]["izq"] = arbol[0]["val"]
+
+	# else:
+				# arbol[j]["nodo"]["izq"]=arbol[j-1]["val"]
+				# arbol[j]["nodo"]["der"]=arbol[j+1]["val"]
+
+
+
+
+
+	if (len(arbol)!=0):
+		# print(arbol)
+		print("=============================")
+		print("el arbol es:")
+		for aa in arbol:
+			print(aa)
+		if (len(arbol) > 1):
+			#donde esta el nodo inicial en la representacion de lista
+			ll=get_node(arbol,arbol[-2]["val"])
+		else:
+			ll=get_node(arbol,arbol[0]["val"])
+
+		generate_code(arbol,ll,10)
+	i=i+1
+
+
+
+
+
+
+print(punteros_a_valores)
+
+
 
