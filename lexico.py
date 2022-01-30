@@ -366,11 +366,14 @@ for i in range(0, len(lista_tokens)):
 	for a in list_modificadores:
 		if lista_identificadores[i].split("_")[0]==a:
 			# print(lista_identificadores[i]+" es "+ a)
+
 			lista_tipo_lexemas[i+1]["modif"]=a
 			lista_tipo_lexemas[i + 2]["modif"] = a
 	for a in list_types:
 		if lista_identificadores[i].split("_")[0]==a:
 			# print(lista_identificadores[i]+" es "+ a)
+			# lista_tipo_lexemas[i]["tipo"]=lista_tipo_lexemas[i]["value"]
+
 			lista_tipo_lexemas[i+1]["tipo"]=a
 	if lista_tipo_lexemas[i]["value"].isdigit():
 		print(lista_tipo_lexemas[i]["value"] + " es int")
@@ -406,8 +409,8 @@ while i< (len(lista_tokens)):
 			lista_tipo_lexemas[inicioo-1]["tipo"]="real"
 		if j["tipo"]=="char":
 			lista_tipo_lexemas[inicioo-1]["tipo"]="char"
-		elif j["tipo"]!="":
-			lista_tipo_lexemas[inicioo-1]["tipo"]="int"
+		# elif j["tipo"]!="":
+		# 	lista_tipo_lexemas[inicioo-1]["tipo"]="int"
 
 	# print(i)
 	# for a in lista:
@@ -512,19 +515,19 @@ while i< (len(lista_tokens)):
 
 
 
-	if (len(arbol)!=0):
-		# print(arbol)
-		print("=============================")
-		print("el arbol es:")
-		for aa in arbol:
-			print(aa)
-		if (len(arbol) > 1):
-			#donde esta el nodo inicial en la representacion de lista
-			ll=get_node(arbol,arbol[-2]["val"])
-		else:
-			ll=get_node(arbol,arbol[0]["val"])
+	# if (len(arbol)!=0):
+	# 	# print(arbol)
+	# 	print("=============================")
+	# 	print("el arbol es:")
+	# 	for aa in arbol:
+	# 		print(aa)
+	# 	if (len(arbol) > 1):
+	# 		#donde esta el nodo inicial en la representacion de lista
+	# 		ll=get_node(arbol,arbol[-2]["val"])
+	# 	else:
+	# 		ll=get_node(arbol,arbol[0]["val"])
 
-		generate_code(arbol,ll,10)
+	# 	generate_code(arbol,ll,10)
 	i=i+1
 
 
