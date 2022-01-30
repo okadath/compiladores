@@ -378,12 +378,12 @@ for i in range(0, len(lista_tokens)):
 	if lista_tipo_lexemas[i]["value"].isdigit():
 		print(lista_tipo_lexemas[i]["value"] + " es int")
 		lista_tipo_lexemas[i]["tipo"] = "int"
-	elif is_integer(lista_tipo_lexemas[i]["value"]):
-		print(lista_tipo_lexemas[i]["value"] + " es real")
-		lista_tipo_lexemas[i]["tipo"] = "real"
+	# elif is_integer(lista_tipo_lexemas[i]["value"]):
+		# print(lista_tipo_lexemas[i]["value"] + " es real")
+		# lista_tipo_lexemas[i]["tipo"] = "real"
 	elif lista_tipo_lexemas[i]["value"][0].isdigit()	:
-		print(lista_tipo_lexemas[i]["value"] + " es real")
-		lista_tipo_lexemas[i]["tipo"] = "real"
+		print(lista_tipo_lexemas[i]["value"] + " es float")
+		lista_tipo_lexemas[i]["tipo"] = "float"
 
 # for a in lista_tipo_lexemas:
 # 	print(a)
@@ -405,8 +405,8 @@ while i< (len(lista_tokens)):
 	for j in lista:
 		if j["tipo"]=="float":
 			lista_tipo_lexemas[inicioo-1]["tipo"]="float"
-		if j["tipo"]=="real":
-			lista_tipo_lexemas[inicioo-1]["tipo"]="real"
+		# if j["tipo"]=="real":
+			# lista_tipo_lexemas[inicioo-1]["tipo"]="real"
 		if j["tipo"]=="char":
 			lista_tipo_lexemas[inicioo-1]["tipo"]="char"
 		# elif j["tipo"]!="":
@@ -418,8 +418,8 @@ while i< (len(lista_tokens)):
 
 
 # aqui se imprime la tarea 4
-for a in lista_tipo_lexemas:
-	print(a)
+for j in range(0, len(lista_tipo_lexemas)):
+	print(lista_tipo_lexemas[j])
 
 # El lenguaje C no define tamaños fijos para sus tipos de datos básicos.
 # Lo único que garantiza es que un short int tiene un tamaño menor o igual que un int
