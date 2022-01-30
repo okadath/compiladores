@@ -129,15 +129,15 @@ def generate_parse_table(terminals, non_terminals, grammar, grammar_first, gramm
     return(parse_table)
 
 def display_parse_table(parse_table, terminal, non_terminal):
-    print("\t\t\t\t",end = "")
+    print("\t",end = "")
     for terminal in terminals:
-        print(terminal+"\t\t", end = "")
-    print("\n\n")
+        print(terminal+"\t", end = "")
+    print("\n")
     
     for non_terminal in non_terminals:
-        print("\t\t"+non_terminal+"\t\t", end = "")
+        print(""+non_terminal+"\t", end = "")
         for terminal in terminals:
-            print(parse_table[non_terminals.index(non_terminal)][terminals.index(terminal)]+"\t\t", end = "")
+            print(parse_table[non_terminals.index(non_terminal)][terminals.index(terminal)]+"\t", end = "")
         print("\n")
 
 
@@ -145,8 +145,8 @@ def parse(expr, parse_table, terminals, non_terminals):
     stack = ["$"]
     stack.insert(0, non_terminals[0])
 
-    print("\t\t\tMatched\t\t\tStack\t\t\tInput\t\t\tAction\n")
-    print("\t\t\t-\t\t\t", end = "")
+    print("\tMatched\t\t\tStack\t\t\tInput\t\t\tAction\n")
+    print("\t-\t\t\t", end = "")
     for i in stack:
         print(i,  end = "")
     print("\t\t\t", end = "")
@@ -166,7 +166,7 @@ def parse(expr, parse_table, terminals, non_terminals):
             else:    
                 matched = matched + expr[0]
             action = "Matched "+expr[0]
-            print("macheado" + expr[0])
+            # print("macheado" + expr[0])
             expr = expr[1:]
             stack.pop(0)
 
@@ -179,7 +179,7 @@ def parse(expr, parse_table, terminals, non_terminals):
                     stack.insert(i,item)
                 i+=1
 
-        print("\t\t\t"+matched+"\t\t\t", end = "")
+        print("\t"+matched+"\t\t\t", end = "")
         for i in stack:
             print(i,  end = "")
         print("\t\t\t", end = "")
@@ -187,14 +187,6 @@ def parse(expr, parse_table, terminals, non_terminals):
         print(action)
         # print("\t\t\t", end = "")
         # if action=="MAtch"
-
-
-
-
-
-
-#################################             Main_Driver             #################################
-
 
 
 
@@ -259,7 +251,7 @@ print(non_terminals)
 print(terminals)
 
 
-print("\n\n\n\n\t\t\t\t\t\t\tParse Table\n\n")
+print("\n\n\t\tParse Table\n\n")
 parse_table = generate_parse_table(terminals, non_terminals, grammar, grammar_first, grammar_follow)
 display_parse_table(parse_table, terminals, non_terminals)
 
@@ -267,10 +259,10 @@ display_parse_table(parse_table, terminals, non_terminals)
 #expr = input("Enter the expression ending with $ : ")
 
 
-expr = "i-i/i-i/i$"
+expr = "i-i/i-i$"
 
-print("\n\n\n\n\n\n")
-print("\t\t\t\t\t\t\tParsing Expression\n\n")
+print("\n\n\n\n")
+print("\t\t\t\t\tParsing Expression\n\n")
 parse(expr, parse_table, terminals, non_terminals)
 
 

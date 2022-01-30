@@ -350,8 +350,8 @@ try:
 except:
 	print("terminado")
 
-for i in range(0, len(lista_tokens)):
-	print(lista_tokens[i]+"   \t <--> \t"+lista_identificadores[i])
+# for i in range(0, len(lista_tokens)):
+	# print(lista_tokens[i]+"   \t <--> \t"+lista_identificadores[i])
 
 lista_tipo_lexemas=[]
 
@@ -373,7 +373,7 @@ for i in range(0, len(lista_tokens)):
 			# print(lista_identificadores[i]+" es "+ a)
 			lista_tipo_lexemas[i+1]["tipo"]=a
 	if lista_tipo_lexemas[i]["value"].isdigit():
-		print(lista_tipo_lexemas[i]["value"] + " es digito")
+		print(lista_tipo_lexemas[i]["value"] + " es int")
 		lista_tipo_lexemas[i]["tipo"] = "int"
 	elif is_integer(lista_tipo_lexemas[i]["value"]):
 		print(lista_tipo_lexemas[i]["value"] + " es real")
@@ -392,7 +392,7 @@ while i< (len(lista_tokens)):
 	lista=[]
 	if lista_tipo_lexemas[i]["token"].split("_")[0]=="equal":
 		inicioo=i
-		for j in range(i+1, len(lista_tokens)):
+		for j in range(i-1, len(lista_tokens)):
 			if lista_tipo_lexemas[j]["token"].split("_")[0]=="puntoycoma":
 				i=j
 				break
@@ -415,8 +415,8 @@ while i< (len(lista_tokens)):
 
 
 # aqui se imprime la tarea 4
-# for a in lista_tipo_lexemas:
-# 	print(a)
+for a in lista_tipo_lexemas:
+	print(a)
 
 # El lenguaje C no define tamaños fijos para sus tipos de datos básicos.
 # Lo único que garantiza es que un short int tiene un tamaño menor o igual que un int
@@ -446,7 +446,7 @@ def generatearithmeticOP(cadena, reg1,reg2):
 		op="MUL"
 	elif cadena=="/":
 		op="DIV"
-	print(op+" R"+str(reg1)+" , R"+str(reg2)+";")
+	print(op+" R"+str(reg1)+", R"+str(reg2)+";")
 
 
 def generateload(cadena,registro):
@@ -530,9 +530,6 @@ while i< (len(lista_tokens)):
 
 
 
-
-
-print(punteros_a_valores)
 
 
 
