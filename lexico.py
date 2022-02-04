@@ -376,13 +376,13 @@ for i in range(0, len(lista_tokens)):
 
 			lista_tipo_lexemas[i+1]["tipo"]=a
 	if lista_tipo_lexemas[i]["value"].isdigit():
-		print(lista_tipo_lexemas[i]["value"] + " es int")
+		# print(lista_tipo_lexemas[i]["value"] + " es int")
 		lista_tipo_lexemas[i]["tipo"] = "int"
 	# elif is_integer(lista_tipo_lexemas[i]["value"]):
 		# print(lista_tipo_lexemas[i]["value"] + " es real")
 		# lista_tipo_lexemas[i]["tipo"] = "real"
 	elif lista_tipo_lexemas[i]["value"][0].isdigit()	:
-		print(lista_tipo_lexemas[i]["value"] + " es float")
+		# print(lista_tipo_lexemas[i]["value"] + " es float")
 		lista_tipo_lexemas[i]["tipo"] = "float"
 
 # for a in lista_tipo_lexemas:
@@ -393,7 +393,7 @@ inicioo=0
 while i< (len(lista_tokens)):
 # for i in range(1, len(lista_tokens)):
 	lista=[]
-	if lista_tipo_lexemas[i]["token"].split("_")[0]=="equal":
+	if lista_tipo_lexemas[i]["token"].split("_")[0]=="unsigned":
 		inicioo=i
 		for j in range(i-1, len(lista_tokens)):
 			if lista_tipo_lexemas[j]["token"].split("_")[0]=="puntoycoma":
@@ -418,8 +418,8 @@ while i< (len(lista_tokens)):
 
 
 # aqui se imprime la tarea 4
-for j in range(0, len(lista_tipo_lexemas)):
-	print(lista_tipo_lexemas[j])
+# for j in range(0, len(lista_tipo_lexemas)):
+# 	print(lista_tipo_lexemas[j])
 
 # El lenguaje C no define tamaños fijos para sus tipos de datos básicos.
 # Lo único que garantiza es que un short int tiene un tamaño menor o igual que un int
@@ -437,7 +437,7 @@ i=0
 
 
 def IsArithmeticOP(cadena)-> bool:
-	return (cadena=="+" or cadena=="-" or cadena=="*" or cadena=="/")
+	return (cadena=="+" or cadena=="-" or cadena=="*" or cadena=="/" or cadena=="=")
 
 def generatearithmeticOP(cadena, reg1,reg2):
 	op=""
@@ -449,10 +449,13 @@ def generatearithmeticOP(cadena, reg1,reg2):
 		op="MUL"
 	elif cadena=="/":
 		op="DIV"
+	elif cadena=="=":
+		op="STORE"
 	print(op+" R"+str(reg1)+", R"+str(reg2)+";")
 
 
 def generateload(cadena,registro):
+	# if cadena!="a":
 	print("LOAD "+cadena+" R"+str(registro)+";")
 
 def get_node(array,label):
@@ -485,7 +488,7 @@ def generate_code(array,arbol, regnum):
 while i< (len(lista_tokens)):
 # for i in range(1, len(lista_tokens)):
 	arbol=[]
-	if lista_identificadores[i-1].split("_")[0] == "ident":
+	if lista_identificadores[i-1].split("_")[0] == "float":
 		# punteros_a_valores.append({"id":lista_tipo_lexemas[i-1]["token"],"arbol":"","valor":""})
 		inicioo=i
 		for j in range(i+1, len(lista_tokens)):
@@ -497,12 +500,14 @@ while i< (len(lista_tokens)):
 				break
 			arbol.append({"val":lista_tipo_lexemas[j]["token"],"nodo":{"label":lista_tipo_lexemas[j]["value"],"izq":"","der":""}})
 	# arbol[inicioo]["arbol"]=lista_tipo_lexemas[inicioo]["token"]
-
 	if len(arbol)>1:
 
 		for j in range(1, len(arbol)-1):
-			# print(arbol[j]["val"].split(("_"))[0][:4])
+			# print(arbol[j]["val"])#$.split(("_"))[0][:4])
 			if arbol[j]["val"].split(("_"))[0][:4]=="oper":
+				arbol[j]["nodo"]["izq"] = arbol[j - 2]["val"]
+				arbol[j]["nodo"]["der"] = arbol[j + 1]["val"]
+			if arbol[j]["val"].split(("_"))[0][:4]=="equa":
 				arbol[j]["nodo"]["izq"] = arbol[j - 2]["val"]
 				arbol[j]["nodo"]["der"] = arbol[j + 1]["val"]
 		arbol[1]["nodo"]["izq"] = arbol[0]["val"]
@@ -515,19 +520,19 @@ while i< (len(lista_tokens)):
 
 
 
-	# if (len(arbol)!=0):
-	# 	# print(arbol)
-	# 	print("=============================")
-	# 	print("el arbol es:")
-	# 	for aa in arbol:
-	# 		print(aa)
-	# 	if (len(arbol) > 1):
-	# 		#donde esta el nodo inicial en la representacion de lista
-	# 		ll=get_node(arbol,arbol[-2]["val"])
-	# 	else:
-	# 		ll=get_node(arbol,arbol[0]["val"])
+	if (len(arbol)!=0):
+		# print(arbol)
+		print("=============================")
+		print("el arbol es:")
+		for aa in arbol:
+			print(aa)
+		if (len(arbol) > 1):
+			#donde esta el nodo inicial en la representacion de lista
+			ll=get_node(arbol,arbol[-2]["val"])
+		else:
+			ll=get_node(arbol,arbol[0]["val"])
 
-	# 	generate_code(arbol,ll,10)
+		generate_code(arbol,ll,10)
 	i=i+1
 
 
